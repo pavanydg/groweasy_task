@@ -161,7 +161,7 @@ const EditBanner: React.FC<EditBannerProps> = ({ banner, onClose,onUpdate,select
             </svg>
           </div>
           {imageListState.map((url) => {
-            return <div className='cursor-pointer' onClick={(e) => { setImage(url) }}>
+            return <div key={Date.now()} className='cursor-pointer' onClick={(e) => { setImage(url) }}>
               <ImagesList imageurl={url} />
             </div>
           })}
