@@ -18,17 +18,17 @@ interface EditBannerProps {
     backgroundIndex: number
   };
   onClose: () => void;
-  onUpdate: (updatedBanner:EditBannerProps['banner']) => void;
+  onUpdate: (updatedBanner: EditBannerProps['banner']) => void;
   selectedBanner: number | null
 }
 
-const EditBanner: React.FC<EditBannerProps> = ({ banner, onClose,onUpdate,selectedBanner }) => {
+const EditBanner: React.FC<EditBannerProps> = ({ banner, onClose, onUpdate, selectedBanner }) => {
   const [title, setTitle] = useState(banner.title)
   const [description, setDescription] = useState(banner.description)
   const [cta, setCta] = useState(banner.cta);
   const [image, setImage] = useState(banner.image);
   const [background, setBackground] = useState(banner.background);
-  const [backgroundIndex,setBackgroundIndex] = useState(banner.backgroundIndex);
+  const [backgroundIndex, setBackgroundIndex] = useState(banner.backgroundIndex);
   const bannerRef = useRef<HTMLDivElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageListState, setImageListState] = useState(imageList);
@@ -45,20 +45,20 @@ const EditBanner: React.FC<EditBannerProps> = ({ banner, onClose,onUpdate,select
     onUpdate(updatedBanner);
 
     const updatedBanners = JSON.parse(localStorage.getItem('banners') || '[]');
-    if(selectedBanner !== null){
+    if (selectedBanner !== null) {
       updatedBanners[selectedBanner] = updatedBanner;
-      localStorage.setItem('banners',JSON.stringify(updatedBanners))
+      localStorage.setItem('banners', JSON.stringify(updatedBanners))
     }
   }
 
   const handleDownload = () => {
     if (bannerRef.current) {
       html2canvas(bannerRef.current, {
-        scale: 4 
+        scale: 4
       }).then(canvas => {
         const link = document.createElement('a');
-        link.href = canvas.toDataURL('image/png'); 
-        link.download = 'banner.png'; 
+        link.href = canvas.toDataURL('image/png');
+        link.download = 'banner.png';
         link.click();
       });
     }
@@ -75,7 +75,7 @@ const EditBanner: React.FC<EditBannerProps> = ({ banner, onClose,onUpdate,select
             image={image}
             background={background}
             backgroundIndex={backgroundIndex}
-            onEdit={() => {}}
+            onEdit={() => { }}
             editButton="hidden"
           />
         );
@@ -88,7 +88,7 @@ const EditBanner: React.FC<EditBannerProps> = ({ banner, onClose,onUpdate,select
             image={image}
             background={background}
             backgroundIndex={backgroundIndex}
-            onEdit={() => {}}
+            onEdit={() => { }}
             editButton="hidden"
           />
         );
@@ -101,7 +101,7 @@ const EditBanner: React.FC<EditBannerProps> = ({ banner, onClose,onUpdate,select
             image={image}
             background={background}
             backgroundIndex={backgroundIndex}
-            onEdit={() => {}}
+            onEdit={() => { }}
             editButton="hidden"
           />
         );
@@ -125,7 +125,7 @@ const EditBanner: React.FC<EditBannerProps> = ({ banner, onClose,onUpdate,select
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-lg text-black">
-      
+
       <div className='flex justify-between'>
         <div>Edit Banner</div>
         {/* Close Button */}
@@ -152,19 +152,19 @@ const EditBanner: React.FC<EditBannerProps> = ({ banner, onClose,onUpdate,select
               onChange={handleFileChange}
             />
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6"
-            onClick={() => {
-              fileInputRef.current?.click()
-            }}
-            >            
+              onClick={() => {
+                fileInputRef.current?.click()
+              }}
+            >
               <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
               />
             </svg>
           </div>
-          {imageListState.map((url) => {
-            return <div key={Date.now()} className='cursor-pointer' onClick={(e) => { setImage(url) }}>
-              <ImagesList imageurl={url} />
-            </div>
-          })}
+            {imageListState.map((url,index) => {
+              return <div key={index} className='cursor-pointer' onClick={(e) => { setImage(url) }}>
+                <ImagesList imageurl={url} />
+              </div>
+            })}
         </div>
       </div>
       <div className='flex flex-col'>
@@ -195,7 +195,7 @@ const EditBanner: React.FC<EditBannerProps> = ({ banner, onClose,onUpdate,select
         </div>
       </div>
       <div style={{ backgroundColor: 'rgb(41 71 68/var(--tw-bg-opacity))' }} className='text-center text-white p-3 rounded-lg font-bold text-lg cursor-pointer'
-      onClick={handleSave}
+        onClick={handleSave}
       >
         Done
       </div>
